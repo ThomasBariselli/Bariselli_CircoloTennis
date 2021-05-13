@@ -94,7 +94,7 @@ public class Prenotazione
 
     public String toString() 
     {
-        return "Prenotazione{" + "codice=" + codice + ", nome=" + nome + ", cognome=" + cognome + ", dataOraLezione=" + dataOraLezione + ", maestro=" + maestro + '}';
+        return "Prenotazione" + "codice=" + codice + ", nome=" + nome + ", cognome=" + cognome + ", dataOraLezione=" + dataOraLezione + ", maestro=" + maestro + '}';
     }
     
     
