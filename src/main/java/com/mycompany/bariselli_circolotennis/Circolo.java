@@ -7,12 +7,8 @@ package com.mycompany.bariselli_circolotennis;
 
 /**
  *
- * @author Thomas
+ * @author thoma
  */
-public class Main 
-{
-    public static void main(String[] args) 
-    {
-        System.out.println("");
-    }
+public class Circolo {
+    
 }
