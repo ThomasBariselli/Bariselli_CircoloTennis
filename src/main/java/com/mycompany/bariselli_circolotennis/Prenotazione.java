@@ -9,7 +9,6 @@ package com.mycompany.bariselli_circolotennis;
  *
  * @author thoma
  */
-public class Maestro 
-{
+public class Prenotazione {
     
 }
