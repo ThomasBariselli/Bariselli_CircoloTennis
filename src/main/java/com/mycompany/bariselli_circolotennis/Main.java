@@ -13,6 +13,8 @@ public class Main
 {
     public static void main(String[] args) 
     {
-        System.out.println("");
+        Maestro m1=new Maestro("Sespo","Mario");
+        Prenotazione p1=new Prenotazione(0, "nome", "cognome", 15, 6, 2021, 13, 0, m1);
+        System.out.println(p1.toString());
     }
 }

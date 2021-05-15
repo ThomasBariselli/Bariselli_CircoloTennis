@@ -48,7 +48,7 @@ public class Maestro
 
     public String toString() 
     {
-        return "Maestro{" + "nome=" + nome + ", cognome=" + cognome + '}';
+        return " maestro: " + "nome=" + nome + ", cognome=" + cognome ;
     }
     
     

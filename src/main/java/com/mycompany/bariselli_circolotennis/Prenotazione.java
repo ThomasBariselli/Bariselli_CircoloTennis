@@ -23,7 +23,7 @@ public class Prenotazione
     private LocalDateTime dataOraLezione;
     private Maestro maestro;
 
-    public Prenotazione(int codice, String nome, String cognome,int giorno,int mese,int minuto,int anno,int ora, Maestro maestro) 
+    public Prenotazione(int codice, String nome, String cognome,int giorno,int mese,int anno,int ora,int minuto, Maestro maestro) 
     {
         this.codice = 0;
         this.nome = nome;
@@ -73,7 +73,7 @@ public class Prenotazione
 
     public LocalDateTime getDataOraLezione() 
     {
-        return dataOraLezione;
+        return LocalDateTime.from(dataOraLezione);
     }
 
     public void setDataOraLezione(LocalDateTime dataOraLezione) 
@@ -94,7 +94,7 @@ public class Prenotazione
 
     public String toString() 
     {
-        return "Prenotazione" + "codice=" + codice + ", nome=" + nome + ", cognome=" + cognome + ", dataOraLezione=" + dataOraLezione + ", maestro=" + maestro + '}';
+        return "Prenotazione: " + "codice=" + codice + ", nome=" + nome + ", cognome=" + cognome + ", dataOraLezione=" + dataOraLezione.toString() + "," + maestro.toString();
     }
     
     
