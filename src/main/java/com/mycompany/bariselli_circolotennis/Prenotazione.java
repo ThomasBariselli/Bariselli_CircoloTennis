@@ -37,7 +37,7 @@ public class Prenotazione
         this.codice = p.codice;
         this.nome = p.nome;
         this.cognome = p.cognome;
-        this.dataOraLezione=LocalDateTime.of(p.getDataOraLezione().getYear(),p.getDataOraLezione().getMonthValue(),p.getDataOraLezione().getDayOfMonth(),p.getDataOraLezione().getHour(),p.getDataOraLezione().getMinute());
+        this.dataOraLezione= LocalDateTime.from(p.getDataOraLezione());
         this.maestro = new Maestro(p.getMaestro());
     }
 

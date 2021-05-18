@@ -5,6 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import Eccezioni.EccezioneClienteNonPresente;
 import Eccezioni.*;
 import java.time.LocalDateTime;
 
@@ -92,6 +93,27 @@ public class Circolo
     {
 	for (int i=posizione;i<getnPrenotazioniPresenti();i++)
             prenotazioni[i]=prenotazioni[i+1];
+    }
+    
+    public Prenotazione[] getPrenotazioniCliente(String nome,String cognome) throws EccezioneClienteNonPresente
+    {
+        int c=0;
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+        {
+            if((prenotazioni[i].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[i].getCognome().compareToIgnoreCase(cognome))==0)
+                c++;
+        }
+        Prenotazione[] prenotazioniCliente=new Prenotazione[c];
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+        {
+            if((prenotazioni[i].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[i].getCognome().compareToIgnoreCase(cognome))==0)
+                prenotazioniCliente[i]=new Prenotazione(prenotazioni[i]);
+                
+        }
+        if(c>0)
+           return prenotazioniCliente;
+        else
+            throw new EccezioneClienteNonPresente(nome,cognome);
     }
     
     

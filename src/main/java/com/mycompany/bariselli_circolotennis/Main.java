@@ -5,6 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import Eccezioni.EccezioneClienteNonPresente;
 import Eccezioni.EccezioneCodiceNonPresente;
 import Eccezioni.EccezioneDataNonValida;
 import java.util.logging.Level;
@@ -31,7 +32,16 @@ public class Main
         {
             System.out.println(e1.toString());
         }
-       
+        try
+        {
+            Prenotazione[] prenotazioniCliente=c1.getPrenotazioniCliente("nome","cognome");
+            for(int i=0;i<prenotazioniCliente.length;i++)
+                System.out.println(prenotazioniCliente[i].toString()+"\n");
+        }
+        catch(EccezioneClienteNonPresente e1)
+        {
+            System.out.println(e1.toString());
+        }
         try 
         {
             c1.rimuoviPrenotazione(0);
@@ -40,6 +50,15 @@ public class Main
         {
             System.out.println(ex.toString());
         }
-        System.out.println(c1.getPrenotazione(0));
+        try
+        {
+            Prenotazione[] prenotazioniCliente=c1.getPrenotazioniCliente("nome","cognome");
+            for(int i=0;i<prenotazioniCliente.length;i++)
+                System.out.println(prenotazioniCliente[i].toString()+"\n");
+        }
+        catch(EccezioneClienteNonPresente e1)
+        {
+            System.out.println(e1.toString());
+        }
     }
 }
