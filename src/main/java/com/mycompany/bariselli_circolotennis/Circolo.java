@@ -5,6 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import Eccezioni.EccezioneCodiceNonPresente;
 import Eccezioni.EccezioneDataNonValida;
 import Eccezioni.PrenotazioneOccupataException;
 import java.time.LocalDateTime;
@@ -59,9 +60,13 @@ public class Circolo
     
     public void aggiungiPrenotazione(Prenotazione p) throws EccezioneDataNonValida
     {       
-        if(prenotazioni[nPrenotazioniPresenti].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
+        for(int i=0;i<prenotazioni.length;i++)
+        {
+          if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
             throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
-        else if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
+          
+        }
+        if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
             throw new EccezioneDataNonValida("Data gia' passata,reinserire la prenotazione con una data valida");
         else
         {
@@ -71,17 +76,28 @@ public class Circolo
             
     }
     
-    /*public Circolo getPrenotazione(int posizione)
+    public void rimuoviVolume(int codice) throws EccezioneCodiceNonPresente
     {
-        try
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
-            return new Libro(volumi[posizione]);  
-        }
-        catch(NullPointerException posizioneVuota)
-        {
-            return null;
-        }
-    }*/
+            if(prenotazioni[i].getCodice()==codice) 
+            {
+                prenotazioni[i]=null;
+                aggiornaPosizione(i);
+                nPrenotazioniPresenti--;
+                return;
+            }
+        } 
+        throw new EccezioneCodiceNonPresente(codice);
+    }
+    private void aggiornaPosizione (int posizione)
+    {
+	for (int i=posizione;i<getnPrenotazioniPresenti();i++)
+            prenotazioni[i]=prenotazioni[i+1];
+    }
+
+}
+
     
  
     
