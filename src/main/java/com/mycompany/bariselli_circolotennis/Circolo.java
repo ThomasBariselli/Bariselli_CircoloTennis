@@ -5,9 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
-import Eccezioni.EccezioneCodiceNonPresente;
-import Eccezioni.EccezioneDataNonValida;
-import Eccezioni.PrenotazioneOccupataException;
+import Eccezioni.*;
 import java.time.LocalDateTime;
 
 /**
@@ -60,7 +58,7 @@ public class Circolo
     
     public void aggiungiPrenotazione(Prenotazione p) throws EccezioneDataNonValida
     {       
-        for(int i=0;i<prenotazioni.length;i++)
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
           if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
             throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
@@ -76,7 +74,7 @@ public class Circolo
             
     }
     
-    public void rimuoviVolume(int codice) throws EccezioneCodiceNonPresente
+    public void rimuoviPrenotazione(int codice) throws EccezioneCodiceNonPresente
     {
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
@@ -95,10 +93,7 @@ public class Circolo
 	for (int i=posizione;i<getnPrenotazioniPresenti();i++)
             prenotazioni[i]=prenotazioni[i+1];
     }
-
-}
-
     
- 
     
 }
+
