@@ -5,6 +5,8 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import Eccezioni.EccezioneDataNonValida;
+import Eccezioni.PrenotazioneOccupataException;
 import java.time.LocalDateTime;
 
 /**
@@ -55,15 +57,31 @@ public class Circolo
         }
     }
     
-    public void aggiungiPrenotazione(Prenotazione p)
+    public void aggiungiPrenotazione(Prenotazione p) throws EccezioneDataNonValida
     {       
         if(prenotazioni[nPrenotazioniPresenti].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
-            throw PrenotazioneOccupataException;
+            throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
         else if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
-            throw DataNonValidaException;
+            throw new EccezioneDataNonValida("Data gia' passata,reinserire la prenotazione con una data valida");
+        else
+        {
             prenotazioni[nPrenotazioniPresenti]=new Prenotazione(p);
             nPrenotazioniPresenti++;
+        }
+            
     }
+    
+    /*public Circolo getPrenotazione(int posizione)
+    {
+        try
+        {
+            return new Libro(volumi[posizione]);  
+        }
+        catch(NullPointerException posizioneVuota)
+        {
+            return null;
+        }
+    }*/
     
  
     
