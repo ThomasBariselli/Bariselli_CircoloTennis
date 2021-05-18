@@ -5,6 +5,8 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author thoma
@@ -53,22 +55,14 @@ public class Circolo
         }
     }
     
-    public int aggiungiPrenotazione(Prenotazione p)
-    {
-        /*if (posizione<0 || posizione>=getNumMaxVolumi())
-            return -1;                  //posizione non valida
-        */
-        try
-        {
-            if (volumi[posizione]!=null)
-                return -2;                  //posizione occupata
+    public void aggiungiPrenotazione(Prenotazione p)
+    {       
+        if(prenotazioni[nPrenotazioniPresenti].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
+            throw PrenotazioneOccupataException;
+        else if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
+            throw DataNonValidaException;
             prenotazioni[nPrenotazioniPresenti]=new Prenotazione(p);
-            return posizione;
-        }
-        catch (ArrayIndexOutOfBoundsException posizioneNonValida)
-        {
-            return -1;
-        } 
+            nPrenotazioniPresenti++;
     }
     
  
