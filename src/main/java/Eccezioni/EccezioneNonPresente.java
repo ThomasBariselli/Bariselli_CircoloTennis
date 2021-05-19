@@ -9,16 +9,18 @@ package Eccezioni;
  *
  * @author user
  */
-public class EccezioneClienteNonPresente extends Exception
+public class EccezioneNonPresente extends Exception
 {
 
     private String nome;
     private String cognome;
+    private String utente;
 
-    public EccezioneClienteNonPresente(String nome,String cognome)
+    public EccezioneNonPresente(String nome,String cognome,String utente)
     {
         this.nome=nome;
         this.cognome=cognome;
+        this.utente=utente;
     }
 
     public String getNome() {
@@ -29,10 +31,14 @@ public class EccezioneClienteNonPresente extends Exception
         return cognome;
     }
 
+    public String getUtente() {
+        return utente;
+    }
+    
     public String toString()
     {
         String s="";
-        s+="Il cliente "+getNome()+" "+getCognome()+" non ha prenotato nessuna lezione";
+        s+="Il "+getUtente()+" "+getNome()+" "+getCognome()+" non ha prenotato nessuna lezione";
         return s;
     }
     

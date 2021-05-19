@@ -5,7 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
-import Eccezioni.EccezioneClienteNonPresente;
+import Eccezioni.EccezioneNonPresente;
 import Eccezioni.EccezioneCodiceNonPresente;
 import Eccezioni.EccezioneDataNonValida;
 import java.util.logging.Level;
@@ -34,11 +34,16 @@ public class Main
         }
         try
         {
+            System.out.println("\nPrenotazioni cliente presenti prima dell'eliminazione:\n");
             Prenotazione[] prenotazioniCliente=c1.getPrenotazioniCliente("nome","cognome");
             for(int i=0;i<prenotazioniCliente.length;i++)
                 System.out.println(prenotazioniCliente[i].toString()+"\n");
+            System.out.println("\nPrenotazioni maestro presenti prima dell'eliminazione:\n");
+            Prenotazione[] prenotazioniCliente1=c1.getPrenotazioniMaestro("Sespo","Mario");
+            for(int i=0;i<prenotazioniCliente1.length;i++)
+                System.out.println(prenotazioniCliente1[i].toString()+"\n");
         }
-        catch(EccezioneClienteNonPresente e1)
+        catch(EccezioneNonPresente e1)
         {
             System.out.println(e1.toString());
         }
@@ -52,13 +57,26 @@ public class Main
         }
         try
         {
+            System.out.println("\nPrenotazioni cliente presenti dopo l'eliminazione:\n");
             Prenotazione[] prenotazioniCliente=c1.getPrenotazioniCliente("nome","cognome");
             for(int i=0;i<prenotazioniCliente.length;i++)
                 System.out.println(prenotazioniCliente[i].toString()+"\n");
         }
-        catch(EccezioneClienteNonPresente e1)
+        catch(EccezioneNonPresente e1)
         {
             System.out.println(e1.toString());
         }
+        try
+        {
+            System.out.println("\nPrenotazioni maestro presenti dopo l'eliminazione:\n");
+            Prenotazione[] prenotazioniCliente1=c1.getPrenotazioniMaestro("Sespo","Mario");
+            for(int i=0;i<prenotazioniCliente1.length;i++)
+                System.out.println(prenotazioniCliente1[i].toString()+"\n");
+        }
+        catch(EccezioneNonPresente e1)
+        {
+            System.out.println(e1.toString());
+        }
+            
     }
 }

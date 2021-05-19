@@ -5,7 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
-import Eccezioni.EccezioneClienteNonPresente;
+import Eccezioni.EccezioneNonPresente;
 import Eccezioni.*;
 import java.time.LocalDateTime;
 
@@ -95,7 +95,7 @@ public class Circolo
             prenotazioni[i]=prenotazioni[i+1];
     }
     
-    public Prenotazione[] getPrenotazioniCliente(String nome,String cognome) throws EccezioneClienteNonPresente
+    public Prenotazione[] getPrenotazioniCliente(String nome,String cognome) throws EccezioneNonPresente
     {
         int c=0;
         for(int i=0;i<getnPrenotazioniPresenti();i++)
@@ -104,16 +104,45 @@ public class Circolo
                 c++;
         }
         Prenotazione[] prenotazioniCliente=new Prenotazione[c];
+        int i=0;
+        for(int j=0;j<getnPrenotazioniPresenti();j++)
+        {
+            if((prenotazioni[j].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getCognome().compareToIgnoreCase(cognome))==0)
+            {
+                prenotazioniCliente[i]=new Prenotazione(prenotazioni[j]);
+                i++;
+                
+            }
+        }
+          
+        if(c>0)
+           return prenotazioniCliente;
+        else
+            throw new EccezioneNonPresente(nome,cognome,"cliente");
+    }
+    
+    public Prenotazione[] getPrenotazioniMaestro(String nome,String cognome) throws EccezioneNonPresente
+    {
+        int c=0;
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
-            if((prenotazioni[i].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[i].getCognome().compareToIgnoreCase(cognome))==0)
-                prenotazioniCliente[i]=new Prenotazione(prenotazioni[i]);
-                
+            if((prenotazioni[i].getMaestro().getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[i].getMaestro().getCognome().compareToIgnoreCase(cognome))==0)
+                c++;
+        }
+        Prenotazione[] prenotazioniCliente=new Prenotazione[c];
+        int i=0;
+        for(int j=0;j<c;j++)
+        {
+                if((prenotazioni[j].getMaestro().getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getMaestro().getCognome().compareToIgnoreCase(cognome))==0)
+                {
+                    prenotazioniCliente[i]=new Prenotazione(prenotazioni[j]);
+                    i++;
+                }
         }
         if(c>0)
            return prenotazioniCliente;
         else
-            throw new EccezioneClienteNonPresente(nome,cognome);
+            throw new EccezioneNonPresente(nome,cognome,"maestro");
     }
     
     

@@ -25,7 +25,7 @@ public class Prenotazione
 
     public Prenotazione(int codice, String nome, String cognome,int giorno,int mese,int anno,int ora,int minuto, Maestro maestro) 
     {
-        this.codice = 0;
+        this.codice = codice;
         this.nome = nome;
         this.cognome = cognome;
         dataOraLezione= LocalDateTime.of(anno,mese,giorno,ora,minuto);
