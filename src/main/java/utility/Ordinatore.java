@@ -5,6 +5,8 @@
  */
 package utility;
 
+import com.mycompany.bariselli_circolotennis.Prenotazione;
+
 /**
  *
  * @author user
@@ -26,13 +28,13 @@ public class Ordinatore
         v[posizione1]=v[posizione2];
         v[posizione2]=c;
     }
-    /*public static void scambia(Libro v[],int posizione1,int posizione2)
+    public static void scambia(Prenotazione v[],int posizione1,int posizione2)
     {
-        Libro c;
+        Prenotazione c;
         c=v[posizione1];
         v[posizione1]=v[posizione2];
         v[posizione2]=c;
-    }*/
+    }
     public static int[] selectionSortCrescente(int[] a)
     {
         int[] ordinato=new int[a.length];
@@ -118,9 +120,9 @@ public class Ordinatore
         return ordinato;
     }*/
     
-    /*public static Libro[] selectionSortAutoreCrescente(Libro[] a)
+    public static Prenotazione[] selectionSortClientiPerMaestroAlfabetico(Prenotazione[] a)
     {
-        Libro[] ordinato=new Libro[a.length];
+        Prenotazione[] ordinato=new Prenotazione[a.length];
         
         for(int i=0;i<ordinato.length;i++)
             ordinato[i]=a[i];
@@ -128,12 +130,15 @@ public class Ordinatore
         {
             for(int j=i+1;j<ordinato.length;j++)
             {
-                if(ordinato[j].getAutore().compareToIgnoreCase(ordinato[i].getAutore())<0 || (ordinato[j].getAutore().compareToIgnoreCase(ordinato[i].getAutore())==0  && ordinato[j].getTitolo().compareToIgnoreCase(ordinato[i].getTitolo())<0))
-                    scambia(ordinato,i,j);
+                if(ordinato[j].getMaestro().getNome().compareToIgnoreCase(ordinato[i].getMaestro().getNome())==0)
+                {
+                    if((ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())<0)  || (ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())==0 && ordinato[j].getNome().compareToIgnoreCase(ordinato[i].getNome())<0))
+                        scambia(ordinato,i,j);
+                }
             }
         }
         return ordinato;
-    }*/
+    }
     
     public static int[] bubbleSortCrescente(int a[])
     {
