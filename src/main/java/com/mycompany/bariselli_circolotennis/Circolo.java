@@ -7,6 +7,11 @@ package com.mycompany.bariselli_circolotennis;
 
 import Eccezioni.EccezioneNonPresente;
 import Eccezioni.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 
 /**
@@ -144,6 +149,34 @@ public class Circolo
         else
             throw new EccezioneNonPresente(nome,cognome,"maestro");
     }
+    
+    public void salvacircolo(String nomeFile) throws IOException
+  {   
+      FileOutputStream f1=new FileOutputStream(nomeFile);
+      ObjectOutputStream writer=new ObjectOutputStream(f1);
+      writer.writeObject(this);
+      writer.flush();
+      writer.close();   
+  }
+  
+  public Circolo caricaCircolo(String nomeFile) throws IOException, FileException
+  {
+      Circolo c;
+      FileInputStream f1=new FileInputStream(nomeFile);
+      ObjectInputStream reader=new ObjectInputStream(f1);
+      
+       try 
+       {
+           c=(Circolo)reader.readObject();
+           reader.close();
+           return c;
+       } 
+       catch (ClassNotFoundException ex) 
+       {
+           reader.close();
+           throw new FileException("Errore di lettura");
+       }   
+  }
     
     
 }
