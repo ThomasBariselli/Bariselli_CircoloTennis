@@ -134,25 +134,24 @@ public class Main
                     }
                     case 3:
                     {
-                        System.out.println("Ripiano [0..4]-->");
-                        ripiano=tastiera.nextInt();
-                        System.out.println("Posizione [0..14]-->");
-                        posizione=tastiera.nextInt();
-
+                        Prenotazione[] elencoPrenotazioniCliente;
+                        String nome,cognome;
+                        System.out.println("Nome-->");
+                        nome=tastiera.nextLine();
+                        System.out.println("Cognome-->");
+                        cognome=tastiera.nextLine();
                         try
                         {
-                            s1.rimuoviLibro(ripiano, posizione);
-                            System.out.println("Ok rimozione effettuata correttamente");
+                            elencoPrenotazioniCliente=c1.getPrenotazioniCliente(nome,cognome);
+                            for(int i=0;i<elencoPrenotazioniCliente.length;i++)
+                                System.out.println(elencoPrenotazioniCliente[i]);
                         }
-                        catch(EccezionePosizioneNonValida e1)
+                        catch(EccezioneNonPresente e1)
                         {
                             System.out.println(e1.toString());
-                        } 
-                        catch (EccezionePosizioneVuota e2) 
-                        {
-                               System.out.println(e2.toString());
                         }
-                        System.out.println("Premi un pulsante per continuare");
+                        
+                        System.out.println("Premi pulsante per continuare");
                         tastiera.nextLine();
                         break;
                     }
