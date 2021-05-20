@@ -158,6 +158,28 @@ public class Circolo implements Serializable
             throw new EccezioneNonPresente(nome,cognome,"maestro");
     }
     
+    public String toString()
+    {
+        String s="";
+        
+        if(getnPrenotazioniPresenti()==0)
+            s="Nessuna prenotazione presente";
+        else
+        {
+            Prenotazione p;
+            for(int i=0;i<getnPrenotazioniPresenti();i++)
+            {
+                if(getPrenotazione(i)!=null)
+                {
+                    p=getPrenotazione(i);
+                    s=s+i+"-->"+p.toString()+"\n"; 
+                } 
+            }
+        }
+        return s;
+        
+    }
+    
     public void esportaPrenotazioniCSV(String nomeFile) throws IOException, FileException
     {
         Prenotazione p;

@@ -25,7 +25,7 @@ public class Main
 {
     public static void main(String[] args) 
     {
-        String[] vociMenu=new String[8];
+        String[] vociMenu=new String[9];
         int sceltaUtente=-1;
         Scanner tastiera=new Scanner(System.in);
         Circolo c1=new Circolo();
@@ -38,11 +38,12 @@ public class Main
         vociMenu[0]="Esci";
         vociMenu[1]="Aggiungi prenotazione";
         vociMenu[2]="Rimuovi prenotazione";
-        vociMenu[3]="Visualizzare i dati relativi a tutte le lezioni prenotate da un cliente";
-        vociMenu[4]="Visualizzare tutte le lezioni prenotate per un determinato maestro";
-        vociMenu[5]="Visualizzare  il numero di lezioni tenute da ogni maestro in ordine alfabetico di cliente ";
-        vociMenu[6]="Esporta libri su file CSV";
-        vociMenu[7]="Salva dati";
+        vociMenu[3]="Visualizzare i dati relativi a tutte le lezioni prenotate nel circolo";
+        vociMenu[4]="Visualizzare i dati relativi a tutte le lezioni prenotate da un cliente";
+        vociMenu[5]="Visualizzare tutte le lezioni prenotate per un determinato maestro";
+        vociMenu[6]="Visualizzare  il numero di lezioni tenute da ogni maestro in ordine alfabetico di cliente ";
+        vociMenu[7]="Esporta libri su file CSV";
+        vociMenu[8]="Salva dati";
     
           
         
@@ -86,40 +87,40 @@ public class Main
                         String nome,cognome,nomeMaestro,cognomeMaestro;
                         int giorno,mese,anno,ora;
                         
-                        System.out.println("\nInserisci nome:");
-                        nome=tastiera.nextLine();
-                        System.out.println("Inserisci cognome:");
-                        cognome=tastiera.nextLine();
-                        System.out.println("Inserisci giorno:");
-                        giorno=tastiera.nextInt();
-                        System.out.println("Inserisci mese:");
-                        mese=tastiera.nextInt();
-                        System.out.println("Inserisci anno:");
-                        anno=tastiera.nextInt();
-                        System.out.println("Inserisci ora(8-11 14-17:");
-                        ora=tastiera.nextInt();
-                        tastiera.nextLine();
-                        System.out.println("Nome maestro:");
-                        nomeMaestro=tastiera.nextLine();
-                        System.out.println("Cognome maestro:");
-                        cognomeMaestro=tastiera.nextLine();
-                        m=new Maestro(nomeMaestro,cognomeMaestro);
-                        p=new Prenotazione(codice+1, nome, cognome, giorno, mese, anno, ora, 0, m);
-                        try 
+                        try
                         {
+                            System.out.println("\nInserisci nome:");
+                            nome=tastiera.nextLine();
+                            System.out.println("Inserisci cognome:");
+                            cognome=tastiera.nextLine();
+                            System.out.println("Inserisci giorno:");
+                            giorno=tastiera.nextInt();
+                            System.out.println("Inserisci mese:");
+                            mese=tastiera.nextInt();
+                            System.out.println("Inserisci anno:");
+                            anno=tastiera.nextInt();
+                            System.out.println("Inserisci ora(8-11 14-17:");
+                            ora=tastiera.nextInt();
+                            tastiera.nextLine();
+                            System.out.println("Nome maestro:");
+                            nomeMaestro=tastiera.nextLine();
+                            System.out.println("Cognome maestro:");
+                            cognomeMaestro=tastiera.nextLine();
+                            m=new Maestro(nomeMaestro,cognomeMaestro);
+                            p=new Prenotazione(codice+1, nome, cognome, giorno, mese, anno, ora, 0, m);
                             c1.aggiungiPrenotazione(p);
                             codice++;
                             System.out.println("Inserimento avvenuto correttamente");
-                        }
-                        catch (EccezioneDataNonValida e1) 
-                        {
-                            System.out.println(e1.toString());;
                         }
                         catch(java.time.DateTimeException e2)
                         {
                             System.out.println("Data non valida,reinserirla");
                         }
-                        codice++;
+                        catch (EccezioneDataNonValida e1) 
+                        {
+                            System.out.println(e1.toString());;
+                        }
+                        
                         System.out.println("Premi un pulsante per continuare");
                         tastiera.nextLine();
                         break;
@@ -146,6 +147,11 @@ public class Main
                     }
                     case 3:
                     {
+                        System.out.println(c1.toString());
+                        break;
+                    }
+                    case 4:
+                    {
                         Prenotazione[] elencoPrenotazioniCliente;
                         String nome,cognome;
                         System.out.println("Nome-->");
@@ -167,7 +173,7 @@ public class Main
                         tastiera.nextLine();
                         break;
                     }
-                    case 4:
+                    case 5:
                     {
                         Prenotazione[] elencoPrenotazioniMaestro;
                         String nomeMaestro,cognomeMaestro;
@@ -190,12 +196,12 @@ public class Main
                         tastiera.nextLine();
                         break;
                     }
-                    case 5:
+                    case 6:
                     {
-                        //System.out.println(s1.toString());
+                        //System.out.println(c1.toString());
                         break;
                     }
-                    case 6:
+                    case 7:
                     {
                         try
                         {
@@ -212,7 +218,7 @@ public class Main
                         }
                         break;
                     }
-                    case 7:
+                    case 8:
                     {
                         try 
                         {
