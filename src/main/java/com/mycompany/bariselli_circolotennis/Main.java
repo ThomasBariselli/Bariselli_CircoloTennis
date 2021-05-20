@@ -86,40 +86,40 @@ public class Main
                         String nome,cognome,nomeMaestro,cognomeMaestro;
                         int giorno,mese,anno,ora;
                         
-                        System.out.println("\nInserisci nome:");
-                        nome=tastiera.nextLine();
-                        System.out.println("Inserisci cognome:");
-                        cognome=tastiera.nextLine();
-                        System.out.println("Inserisci giorno:");
-                        giorno=tastiera.nextInt();
-                        System.out.println("Inserisci mese:");
-                        mese=tastiera.nextInt();
-                        System.out.println("Inserisci anno:");
-                        anno=tastiera.nextInt();
-                        System.out.println("Inserisci ora(8-11 14-17:");
-                        ora=tastiera.nextInt();
-                        tastiera.nextLine();
-                        System.out.println("Nome maestro:");
-                        nomeMaestro=tastiera.nextLine();
-                        System.out.println("Cognome maestro:");
-                        cognomeMaestro=tastiera.nextLine();
-                        m=new Maestro(nomeMaestro,cognomeMaestro);
-                        p=new Prenotazione(codice+1, nome, cognome, giorno, mese, anno, ora, 0, m);
-                        try 
+                        try
                         {
+                            System.out.println("\nInserisci nome:");
+                            nome=tastiera.nextLine();
+                            System.out.println("Inserisci cognome:");
+                            cognome=tastiera.nextLine();
+                            System.out.println("Inserisci giorno:");
+                            giorno=tastiera.nextInt();
+                            System.out.println("Inserisci mese:");
+                            mese=tastiera.nextInt();
+                            System.out.println("Inserisci anno:");
+                            anno=tastiera.nextInt();
+                            System.out.println("Inserisci ora(8-11 14-17:");
+                            ora=tastiera.nextInt();
+                            tastiera.nextLine();
+                            System.out.println("Nome maestro:");
+                            nomeMaestro=tastiera.nextLine();
+                            System.out.println("Cognome maestro:");
+                            cognomeMaestro=tastiera.nextLine();
+                            m=new Maestro(nomeMaestro,cognomeMaestro);
+                            p=new Prenotazione(codice+1, nome, cognome, giorno, mese, anno, ora, 0, m);
                             c1.aggiungiPrenotazione(p);
                             codice++;
                             System.out.println("Inserimento avvenuto correttamente");
-                        }
-                        catch (EccezioneDataNonValida e1) 
-                        {
-                            System.out.println(e1.toString());;
                         }
                         catch(java.time.DateTimeException e2)
                         {
                             System.out.println("Data non valida,reinserirla");
                         }
-                        codice++;
+                        catch (EccezioneDataNonValida e1) 
+                        {
+                            System.out.println(e1.toString());;
+                        }
+                        
                         System.out.println("Premi un pulsante per continuare");
                         tastiera.nextLine();
                         break;
