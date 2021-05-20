@@ -77,12 +77,13 @@ public class Main
                     case 1:
                     {
                         Prenotazione p;
-                        String nome,cognome;
+                        Maestro m;
+                        String nome,cognome,nomeMaestro,cognomeMaestro;
                         int giorno,mese,anno,ora;
                         
                         System.out.println("\nInserisci nome:");
                         nome=tastiera.nextLine();
-                        System.out.println("Inserisci Cognome:");
+                        System.out.println("Inserisci cognome:");
                         cognome=tastiera.nextLine();
                         System.out.println("Inserisci giorno:");
                         giorno=tastiera.nextInt();
@@ -92,8 +93,21 @@ public class Main
                         anno=tastiera.nextInt();
                         System.out.println("Inserisci ora:");
                         ora=tastiera.nextInt();
-                        p=new Prenotazione(ora, nome, cognome, giorno, mese, anno, ora, anno, maestro);
-                        c1.aggiungiPrenotazione(p);
+                        System.out.println("Nome maestro:");
+                        nomeMaestro=tastiera.nextLine();
+                        System.out.println("Cognome maestro:");
+                        cognomeMaestro=tastiera.nextLine();
+                        m=new Maestro(nomeMaestro,cognomeMaestro);
+                        p=new Prenotazione(ora, nome, cognome, giorno, mese, anno, ora, anno, m);
+                        try 
+                        {
+                            c1.aggiungiPrenotazione(p);
+                            System.out.println("Inserimento avvenuto correttamente");
+                        }
+                        catch (EccezioneDataNonValida e1) 
+                        {
+                            System.out.println(e1.toString());;
+                        }
                         System.out.println("Premi un pulsante per continuare");
                         tastiera.nextLine();
                         break;
