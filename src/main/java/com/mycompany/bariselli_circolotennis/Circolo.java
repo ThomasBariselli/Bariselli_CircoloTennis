@@ -68,6 +68,8 @@ public class Circolo
         {
           if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
             throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
+          else if(p.getDataOraLezione().getHour()<8 || p.getDataOraLezione().getHour()>17 || (p.getDataOraLezione().getHour()>11 && p.getDataOraLezione().getHour()<14))
+            throw new EccezioneDataNonValida("Ora non valida,reinserire la prenotazione con una data valida");
           
         }
         if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )

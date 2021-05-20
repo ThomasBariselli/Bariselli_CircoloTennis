@@ -91,7 +91,7 @@ public class Main
                         mese=tastiera.nextInt();
                         System.out.println("Inserisci anno:");
                         anno=tastiera.nextInt();
-                        System.out.println("Inserisci ora:");
+                        System.out.println("Inserisci ora(8-11 14-17:");
                         ora=tastiera.nextInt();
                         System.out.println("Nome maestro:");
                         nomeMaestro=tastiera.nextLine();
@@ -114,26 +114,21 @@ public class Main
                     }
                     case 2:
                     {
-                        System.out.println("Ripiano [0..4]-->");
-                        ripiano=tastiera.nextInt();
-                        System.out.println("Posizione [0..14]-->");
-                        posizione=tastiera.nextInt();
+                        int codiceDaEliminare;
+                        System.out.println("Codice prenotazione da eliminare-->");
+                        codiceDaEliminare=tastiera.nextInt();
+                        
                         try
                         {
-                            libro=s1.getLibro(ripiano, posizione);
-                            if (libro==null)
-                                System.out.println("Nessun libro presente in questa posizione");
-                            else
-                            {
-                                System.out.println(libro.toString());
-                            }
+                            c1.rimuoviPrenotazione(codiceDaEliminare);
+                            System.out.println("Rimozione effettuata");
                         }
-                        catch (EccezionePosizioneNonValida e1)
+                        catch(EccezioneCodiceNonPresente e1)
                         {
                             System.out.println(e1.toString());
                         }
 
-                        System.out.println("Premi un pulsante per continuare");
+                        System.out.println("Premi pulsante per continuare");
                         tastiera.nextLine();
                         break;
                     }
