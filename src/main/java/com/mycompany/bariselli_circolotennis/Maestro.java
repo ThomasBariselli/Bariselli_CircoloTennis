@@ -5,11 +5,13 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import java.io.Serializable;
+
 /**
  *
  * @author thoma
  */
-public class Maestro 
+public class Maestro implements Serializable
 {
     private String nome;
     private String cognome;

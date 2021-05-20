@@ -29,7 +29,7 @@ public class Main
         int sceltaUtente=-1;
         Scanner tastiera=new Scanner(System.in);
         Circolo c1=new Circolo();
-        int esitoOperazione;
+        int esitoOperazione,codice=0;
         String caricamentoDaFileOK;
         String nomeFileTesto="prenotazioniCircolo.txt";
         String nomeFileBinario="circolo.bin";
@@ -49,6 +49,11 @@ public class Main
         try 
         {
             c1=c1.caricaCircolo(nomeFileBinario);
+            for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
+            {
+                codice++;
+                c1.setCodicePrenotazione(i,codice);
+            }
             System.out.println("Dati caricati correttamente");
         } 
         catch (IOException ex) 
@@ -93,21 +98,28 @@ public class Main
                         anno=tastiera.nextInt();
                         System.out.println("Inserisci ora(8-11 14-17:");
                         ora=tastiera.nextInt();
+                        tastiera.nextLine();
                         System.out.println("Nome maestro:");
                         nomeMaestro=tastiera.nextLine();
                         System.out.println("Cognome maestro:");
                         cognomeMaestro=tastiera.nextLine();
                         m=new Maestro(nomeMaestro,cognomeMaestro);
-                        p=new Prenotazione(ora, nome, cognome, giorno, mese, anno, ora, anno, m);
+                        p=new Prenotazione(codice+1, nome, cognome, giorno, mese, anno, ora, 0, m);
                         try 
                         {
                             c1.aggiungiPrenotazione(p);
+                            codice++;
                             System.out.println("Inserimento avvenuto correttamente");
                         }
                         catch (EccezioneDataNonValida e1) 
                         {
                             System.out.println(e1.toString());;
                         }
+                        catch(java.time.DateTimeException e2)
+                        {
+                            System.out.println("Data non valida,reinserirla");
+                        }
+                        codice++;
                         System.out.println("Premi un pulsante per continuare");
                         tastiera.nextLine();
                         break;
@@ -157,83 +169,38 @@ public class Main
                     }
                     case 4:
                     {
-                        String[] elencoTitoli;
-                        String autore;
-                        System.out.println("Autore-->");
-                        autore=tastiera.nextLine();
+                        Prenotazione[] elencoPrenotazioniMaestro;
+                        String nomeMaestro,cognomeMaestro;
+                        System.out.println("Nome maestro-->");
+                        nomeMaestro=tastiera.nextLine();
+                        System.out.println("Cognome maestro-->");
+                        cognomeMaestro=tastiera.nextLine();
                         try
                         {
-                            elencoTitoli=s1.elencoTitoliAutore(autore);
-                            if (elencoTitoli==null)
-                            System.out.println("Nessun libro presente dell'autore "+autore);
-                            else
-                            {
-                                for (int i=0;i<elencoTitoli.length;i++)
-                                    System.out.println(elencoTitoli[i]);
-                            }
+                            elencoPrenotazioniMaestro=c1.getPrenotazioniMaestro(nomeMaestro,cognomeMaestro);
+                            for(int i=0;i<elencoPrenotazioniMaestro.length;i++)
+                                System.out.println(elencoPrenotazioniMaestro[i]);
                         }
-                        catch (EccezionePosizioneNonValida e1)
+                        catch(EccezioneNonPresente e1)
                         {
                             System.out.println(e1.toString());
                         }
-                        System.out.println("Premi un pulsante per continuare");
+                        
+                        System.out.println("Premi pulsante per continuare");
                         tastiera.nextLine();
                         break;
                     }
                     case 5:
                     {
-                        System.out.println(s1.toString());
+                        //System.out.println(s1.toString());
                         break;
                     }
                     case 6:
                     {
                         try
                         {
-                            System.out.println(s1.elencoAlfabeticoLibri());
-                        }
-                        catch (EccezionePosizioneNonValida e1)
-                        {
-                            System.out.println(e1.toString());
-                        }
-                        break;
-                    }
-                    case 7:
-                    {
-                        Libro[] elencoLibri;
-                        try
-                        {
-                            elencoLibri=s1.elencoLibriOrdinatiPrezzo();
-                            for (int i=0;i<elencoLibri.length;i++)
-                                System.out.println(elencoLibri[i].toString()+ " € "+elencoLibri[i].prezzo());
-                        }
-                        catch (EccezionePosizioneNonValida e1)
-                        {
-                            System.out.println(e1.toString());
-                        }
-                        break;
-
-                    }
-                    case 8:
-                    {
-                        Libro[] elencoLibri;
-                        try
-                        {
-                            elencoLibri=s1.elencoLibriAlfabeticoAutoreTitolo();
-                            for (int i=0;i<elencoLibri.length;i++)
-                                System.out.println(elencoLibri[i].toString()+ " € "+elencoLibri[i].prezzo()); 
-                        }
-                        catch (EccezionePosizioneNonValida e1)
-                        {
-                            System.out.println(e1.toString());
-                        }
-                        break;
-                    }
-                    case 9:
-                    {
-                        try
-                        {
-                            s1.esportaLibriCSV(nomeFileTesto);
-                            System.out.println("Libri esportati correttamente");
+                            c1.esportaPrenotazioniCSV(nomeFileTesto);
+                            System.out.println("Prenotazioni esportate correttamente");
                         }
                         catch(IOException e1)
                         {
@@ -243,25 +210,21 @@ public class Main
                         {
                             System.out.println(e2.toString());
                         }
-                        catch(EccezionePosizioneNonValida e3)
-                        {
-                            System.out.println(e3.toString());
-                        }
                         break;
                     }
-                    case 10:
+                    case 7:
                     {
                         try 
                         {
-                            s1.salvaScaffale(nomeFileBinario);
+                            c1.salvaCircolo(nomeFileBinario);
                             System.out.println("Dati salvati correttamente");
                         } catch (IOException ex) 
                         {
                             System.out.println("Impossibile accedere al file in scrittura");
                         }
+                        break;
 
-                     }
-
+                    }
                 }
                 
             }

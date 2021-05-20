@@ -5,6 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -15,7 +16,7 @@ import java.time.Month;
  * @author Thomas
  */
 //Si chiede che il software memorizzi le prenotazioni per le ore di lezione. I dati da memorizzare per ogni prenotazione sono: codice progressivo numerico, cognome e nome del cliente che prenota la lezione, data e ora prevista per la lezione (ogni lezione dura un’ora), cognome e nome del maestro che terrà la lezione.
-public class Prenotazione 
+public class Prenotazione implements Serializable
 {
     private int codice;
     private String nome;

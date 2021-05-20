@@ -5,6 +5,7 @@
  */
 package com.mycompany.bariselli_circolotennis;
 
+
 import Eccezioni.EccezioneNonPresente;
 import Eccezioni.*;
 import java.io.FileInputStream;
@@ -12,13 +13,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import utility.TextFile;
 
 /**
  *
  * @author thoma
  */
-public class Circolo 
+public class Circolo implements Serializable
 {
     private Prenotazione[] prenotazioni;
     private static int NUM_MAX_PRENOTAZIONI=2928;//366 giorni*8 ore giornaliere
@@ -39,7 +42,10 @@ public class Circolo
                 nPrenotazioniPresenti++;    
         } 
     }
-
+    public void setCodicePrenotazione(int n,int codice)
+    {
+        prenotazioni[n].setCodice(codice);
+    }
     public int getnPrenotazioniPresenti() 
     {
         return nPrenotazioniPresenti;
@@ -152,33 +158,48 @@ public class Circolo
             throw new EccezioneNonPresente(nome,cognome,"maestro");
     }
     
-    public void salvacircolo(String nomeFile) throws IOException
-  {   
+    public void esportaPrenotazioniCSV(String nomeFile) throws IOException, FileException
+    {
+        Prenotazione p;
+        TextFile f1=new TextFile(nomeFile,'W');
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+        {
+            p=getPrenotazione(i);
+            if(p!=null)
+            {
+                f1.toFile(i+";"+p.getCodice()+";"+p.getNome()+";"+p.getCognome()+";"+p.getDataOraLezione().getDayOfMonth()+";"+p.getDataOraLezione().getMonthValue()+";"+p.getDataOraLezione().getYear()+";"+p.getDataOraLezione().getHour()+";"+p.getMaestro().getNome()+";"+p.getMaestro().getCognome()+";");
+            }
+        }
+        f1.close();
+    }
+    
+    public void salvaCircolo(String nomeFile) throws IOException
+    {   
       FileOutputStream f1=new FileOutputStream(nomeFile);
       ObjectOutputStream writer=new ObjectOutputStream(f1);
       writer.writeObject(this);
       writer.flush();
       writer.close();   
-  }
+    }
   
-  public Circolo caricaCircolo(String nomeFile) throws IOException, FileException
-  {
-      Circolo c;
-      FileInputStream f1=new FileInputStream(nomeFile);
-      ObjectInputStream reader=new ObjectInputStream(f1);
-      
-       try 
-       {
-           c=(Circolo)reader.readObject();
-           reader.close();
-           return c;
-       } 
-       catch (ClassNotFoundException ex) 
-       {
-           reader.close();
-           throw new FileException("Errore di lettura");
-       }   
-  }
+    public Circolo caricaCircolo(String nomeFile) throws IOException, FileException
+    {
+        Circolo c;
+        FileInputStream f1=new FileInputStream(nomeFile);
+        ObjectInputStream reader=new ObjectInputStream(f1);
+
+         try 
+         {
+             c=(Circolo)reader.readObject();
+             reader.close();
+             return c;
+         } 
+         catch (ClassNotFoundException ex) 
+         {
+             reader.close();
+             throw new FileException("Errore di lettura");
+         }   
+    }
     
     
 }
