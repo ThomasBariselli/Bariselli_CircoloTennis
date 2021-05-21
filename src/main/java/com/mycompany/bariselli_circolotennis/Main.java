@@ -204,7 +204,13 @@ public class Main
                         {
                             maestriOrdinato=c1.getnPrenotazioniordinateMaestro();
                             for(int i=0;i<maestriOrdinato.length;i++)
-                                System.out.println(maestriOrdinato[i].getCognome()+" "+maestriOrdinato[i].getNome()+"-->"+maestriOrdinato[i].getLezioniMaestro()+"\n");
+                            {
+                                if(maestriOrdinato[i]!=null)
+                                {
+                                    System.out.println(maestriOrdinato[i].getCognome()+" "+maestriOrdinato[i].getNome()+"-->"+maestriOrdinato[i].getLezioniMaestro()+"\n");
+                                }
+                            }
+                            
                         }
                         catch(EccezioneNessunMaestroPresente e1)
                         {

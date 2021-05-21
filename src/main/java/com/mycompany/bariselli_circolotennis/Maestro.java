@@ -35,6 +35,9 @@ public class Maestro implements Serializable
     public void decrementaLezioniMaestro() {
         lezioniMaestro--;
     }
+    public void azzeraLezioniMaestro() {
+        lezioniMaestro=0;
+    }
     
     public Maestro(Maestro m) 
     {

@@ -186,7 +186,9 @@ public class Circolo implements Serializable
     public Maestro[] getnPrenotazioniordinateMaestro() throws EccezioneNessunMaestroPresente
     {
         int c=0;
-        
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+            if(maestri[i]!=null)
+                maestri[i].azzeraLezioniMaestro();
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
             if(maestri[i]!=null)
@@ -217,6 +219,7 @@ public class Circolo implements Serializable
         }
         Maestro[] maestriContatoOrdinato=new Maestro[c];
         maestriContatoOrdinato=Ordinatore.selectionSortMaestriAlfabetico(maestri,c);
+        
         if(c>0)
            return maestriContatoOrdinato;
         else

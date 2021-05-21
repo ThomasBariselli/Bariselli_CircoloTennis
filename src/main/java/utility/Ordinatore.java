@@ -130,7 +130,7 @@ public class Ordinatore
     public static Maestro[] selectionSortMaestriAlfabetico(Maestro[] a,int c)
     {
         Maestro[] ordinato=new Maestro[c];
-        
+       
         for(int i=0;i<ordinato.length;i++)
             ordinato[i]=a[i];
         for(int i=0;i<=ordinato.length-1;i++)
