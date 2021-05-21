@@ -15,11 +15,25 @@ public class Maestro implements Serializable
 {
     private String nome;
     private String cognome;
+    private int lezioniMaestro;
 
     public Maestro(String nome, String cognome) 
     {
         this.nome = nome;
         this.cognome = cognome;
+        lezioniMaestro=0;
+    }
+
+    public int getLezioniMaestro() {
+        return lezioniMaestro;
+    }
+
+    public void incrementaLezioniMaestro() {
+        lezioniMaestro++;
+    }
+    
+    public void decrementaLezioniMaestro() {
+        lezioniMaestro--;
     }
     
     public Maestro(Maestro m) 

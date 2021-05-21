@@ -5,6 +5,7 @@
  */
 package utility;
 
+import com.mycompany.bariselli_circolotennis.Maestro;
 import com.mycompany.bariselli_circolotennis.Prenotazione;
 
 /**
@@ -20,7 +21,13 @@ public class Ordinatore
         v[posizione1]=v[posizione2];
         v[posizione2]=c;
     }
-    
+    public static void scambia(Maestro v[],int posizione1,int posizione2)
+    {
+        Maestro c;
+        c=v[posizione1];
+        v[posizione1]=v[posizione2];
+        v[posizione2]=c;
+    }
     public static void scambia(String v[],int posizione1,int posizione2)
     {
         String c;
@@ -120,9 +127,9 @@ public class Ordinatore
         return ordinato;
     }*/
     
-    public static Prenotazione[] selectionSortClientiPerMaestroAlfabetico(Prenotazione[] a)
+    public static Maestro[] selectionSortMaestriAlfabetico(Maestro[] a,int c)
     {
-        Prenotazione[] ordinato=new Prenotazione[a.length];
+        Maestro[] ordinato=new Maestro[c];
         
         for(int i=0;i<ordinato.length;i++)
             ordinato[i]=a[i];
@@ -130,7 +137,7 @@ public class Ordinatore
         {
             for(int j=i+1;j<ordinato.length;j++)
             {
-                if(ordinato[j].getMaestro().getNome().compareToIgnoreCase(ordinato[i].getMaestro().getNome())==0)
+                if(ordinato[j]!=null)
                 {
                     if((ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())<0)  || (ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())==0 && ordinato[j].getNome().compareToIgnoreCase(ordinato[i].getNome())<0))
                         scambia(ordinato,i,j);

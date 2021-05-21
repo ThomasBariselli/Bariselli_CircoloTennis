@@ -8,6 +8,7 @@ package com.mycompany.bariselli_circolotennis;
 import Eccezioni.EccezioneNonPresente;
 import Eccezioni.EccezioneCodiceNonPresente;
 import Eccezioni.EccezioneDataNonValida;
+import Eccezioni.EccezioneNessunMaestroPresente;
 import Eccezioni.FileException;
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -29,6 +30,7 @@ public class Main
         int sceltaUtente=-1;
         Scanner tastiera=new Scanner(System.in);
         Circolo c1=new Circolo();
+        Maestro[] maestriOrdinato;
         int esitoOperazione,codice=0;
         String caricamentoDaFileOK;
         String nomeFileTesto="prenotazioniCircolo.txt";
@@ -198,7 +200,18 @@ public class Main
                     }
                     case 6:
                     {
-                        //System.out.println(c1.toString());
+                        try
+                        {
+                            maestriOrdinato=c1.getnPrenotazioniordinateMaestro();
+                            for(int i=0;i<maestriOrdinato.length;i++)
+                                System.out.println(maestriOrdinato[i].getCognome()+" "+maestriOrdinato[i].getNome()+"-->"+maestriOrdinato[i].getLezioniMaestro()+"\n");
+                        }
+                        catch(EccezioneNessunMaestroPresente e1)
+                        {
+                            System.out.println(e1.toString());
+                        }
+                        System.out.println("Premi pulsante per continuare");
+                        tastiera.nextLine();
                         break;
                     }
                     case 7:

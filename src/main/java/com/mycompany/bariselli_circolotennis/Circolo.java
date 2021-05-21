@@ -6,7 +6,7 @@
 package com.mycompany.bariselli_circolotennis;
 
 
-import Eccezioni.EccezioneNonPresente;
+
 import Eccezioni.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import utility.Ordinatore;
 import utility.TextFile;
 
 /**
@@ -24,22 +25,42 @@ import utility.TextFile;
 public class Circolo implements Serializable
 {
     private Prenotazione[] prenotazioni;
+    private Maestro[] maestri;
+    private int nMaestriPresenti;
     private static int NUM_MAX_PRENOTAZIONI=2928;//366 giorni*8 ore giornaliere
     private int nPrenotazioniPresenti; 
     
     public Circolo()
     {
         prenotazioni=new Prenotazione[NUM_MAX_PRENOTAZIONI];
+        maestri=new Maestro[NUM_MAX_PRENOTAZIONI];
         nPrenotazioniPresenti=0;
+        nMaestriPresenti=0;
     }
     
     public Circolo (Circolo c)
     {
         prenotazioni=new Prenotazione[NUM_MAX_PRENOTAZIONI];
+        maestri=new Maestro[NUM_MAX_PRENOTAZIONI];
+        int cont=0;
+        
+        
         for (int i=0;i<c.getnPrenotazioniPresenti();i++)
         {
-                prenotazioni[i]=c.getPrenotazione(i);
-                nPrenotazioniPresenti++;    
+            for(int j=0;j<c.getnPrenotazioniPresenti();j++)
+            {
+                if(maestri[j].getNome().compareToIgnoreCase(c.getMaestro(i).getNome())==0 && maestri[j].getCognome().compareToIgnoreCase(c.getMaestro(i).getCognome())==0)
+                    cont++;
+            }
+            prenotazioni[i]=c.getPrenotazione(i);
+            nPrenotazioniPresenti++; 
+            if(cont==0)
+            {
+                maestri[i]=new Maestro(c.getMaestro(i));
+                nMaestriPresenti++;
+            }
+                
+               
         } 
     }
     public void setCodicePrenotazione(int n,int codice)
@@ -68,8 +89,21 @@ public class Circolo implements Serializable
         }
     }
     
+    public Maestro getMaestro(int n)
+    {
+        try
+        {
+            return new Maestro(maestri[n]);
+        }
+        catch(NullPointerException e1)
+        {
+            return null;
+        }
+    }
+    
     public void aggiungiPrenotazione(Prenotazione p) throws EccezioneDataNonValida
-    {       
+    {    
+        int cont=0;
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
           if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
@@ -77,14 +111,29 @@ public class Circolo implements Serializable
           else if(p.getDataOraLezione().getHour()<8 || p.getDataOraLezione().getHour()>17 || (p.getDataOraLezione().getHour()>11 && p.getDataOraLezione().getHour()<14))
             throw new EccezioneDataNonValida("Ora non valida,reinserire la prenotazione con una data valida");
           
+          
         }
         if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
             throw new EccezioneDataNonValida("Data gia' passata,reinserire la prenotazione con una data valida");
         else
         {
+            for(int i=0;i<getnPrenotazioniPresenti();i++)
+            {
+                if(maestri[i]!=null)
+                {
+                    if(maestri[i].getNome().compareToIgnoreCase(p.getMaestro().getNome())==0 && maestri[i].getCognome().compareToIgnoreCase(p.getMaestro().getCognome())==0)
+                        cont++;
+                }
+            }
+            if(cont==0)
+            {
+                maestri[nMaestriPresenti]=new Maestro(p.getMaestro());
+                nMaestriPresenti++;
+            }
+              
             prenotazioni[nPrenotazioniPresenti]=new Prenotazione(p);
             nPrenotazioniPresenti++;
-        }
+        } 
             
     }
     
@@ -134,6 +183,45 @@ public class Circolo implements Serializable
             throw new EccezioneNonPresente(nome,cognome,"cliente");
     }
     
+    public Maestro[] getnPrenotazioniordinateMaestro() throws EccezioneNessunMaestroPresente
+    {
+        int c=0;
+        
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+        {
+            if(maestri[i]!=null)
+                c++;
+            else
+                break;
+        }
+        for(int i=0;i<c;i++)
+        {
+            for(int j=0;j<getnPrenotazioniPresenti();j++)
+            {
+                if((maestri[i].getNome().compareToIgnoreCase(prenotazioni[j].getMaestro().getNome()))==0 && (maestri[i].getCognome().compareToIgnoreCase(prenotazioni[j].getMaestro().getCognome()))==0)
+                    maestri[i].incrementaLezioniMaestro();
+            }
+                
+        }
+        for(int i=0;i<getnPrenotazioniPresenti();i++)
+        {
+            if(maestri[i]!=null)
+            {
+                if(maestri[i].getLezioniMaestro()==0)
+                {
+                    maestri[i]=null;
+                    aggiornaPosizione(i);
+                } 
+            }
+            
+        }
+        Maestro[] maestriContatoOrdinato=new Maestro[c];
+        maestriContatoOrdinato=Ordinatore.selectionSortMaestriAlfabetico(maestri,c);
+        if(c>0)
+           return maestriContatoOrdinato;
+        else
+            throw new EccezioneNessunMaestroPresente("Nessun Maestro presente");
+    }
     public Prenotazione[] getPrenotazioniMaestro(String nome,String cognome) throws EccezioneNonPresente
     {
         int c=0;
