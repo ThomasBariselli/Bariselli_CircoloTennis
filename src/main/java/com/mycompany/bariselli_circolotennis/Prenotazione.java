@@ -95,7 +95,7 @@ public class Prenotazione implements Serializable
 
     public String toString() 
     {
-        return "Prenotazione: " + "codice=" + codice + ", nome=" + nome + ", cognome=" + cognome + ", dataOraLezione=" + dataOraLezione.toString() + "," + maestro.toString();
+        return "Codice: " + getCodice() + "\nNome-->" + getNome() + "\nCognome-->" + getCognome() + "\nData lezione-->" + dataOraLezione.getDayOfMonth() + "/" + dataOraLezione.getMonthValue()+"/"+dataOraLezione.getYear()+"\nOra lezione-->"+dataOraLezione.getHour()+":00";
     }
     
     

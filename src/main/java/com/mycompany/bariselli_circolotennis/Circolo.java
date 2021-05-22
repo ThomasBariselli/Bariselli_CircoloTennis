@@ -263,7 +263,7 @@ public class Circolo implements Serializable
                 if(getPrenotazione(i)!=null)
                 {
                     p=getPrenotazione(i);
-                    s=s+i+"-->"+p.toString()+"\n"; 
+                    s+="\n"+p.toString()+"\n"; 
                 } 
             }
         }

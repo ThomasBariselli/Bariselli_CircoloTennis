@@ -1,0 +1,3 @@
+0;1;Thomas;Bariselli;8;9;2021;8;Angelo;Spannung;
+1;2;Erman;Crespo;9;10;2021;9;Angelo;Spannung;
+2;3;Thomas;Bariselli;7;12;2021;9;Angelo;Arrigoni;

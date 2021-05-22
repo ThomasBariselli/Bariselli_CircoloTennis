@@ -164,7 +164,7 @@ public class Main
                         {
                             elencoPrenotazioniCliente=c1.getPrenotazioniCliente(nome,cognome);
                             for(int i=0;i<elencoPrenotazioniCliente.length;i++)
-                                System.out.println(elencoPrenotazioniCliente[i]);
+                                System.out.println("\n"+elencoPrenotazioniCliente[i]);
                         }
                         catch(EccezioneNonPresente e1)
                         {
