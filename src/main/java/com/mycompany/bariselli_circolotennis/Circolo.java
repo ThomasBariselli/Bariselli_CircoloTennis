@@ -7,6 +7,7 @@ package com.mycompany.bariselli_circolotennis;
 
 
 
+import Eccezioni.EccezionePosizioneNonValida;
 import Eccezioni.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,7 +39,7 @@ public class Circolo implements Serializable
         nMaestriPresenti=0;
     }
     
-    public Circolo (Circolo c)
+    public Circolo (Circolo c) throws EccezionePosizioneNonValida
     {
         prenotazioni=new Prenotazione[NUM_MAX_PRENOTAZIONI];
         maestri=new Maestro[NUM_MAX_PRENOTAZIONI];
@@ -77,13 +78,16 @@ public class Circolo implements Serializable
         return NUM_MAX_PRENOTAZIONI;
     }
     
-    public Prenotazione getPrenotazione(int n)
+    public Prenotazione getPrenotazione(int n) 
     {
         try
         {
+            if(n<0 || n>=NUM_MAX_PRENOTAZIONI)
+                throw new EccezionePosizioneNonValida(n);
             return new Prenotazione(prenotazioni[n]);
+            
         }
-        catch(NullPointerException e1)
+        catch(NullPointerException | EccezionePosizioneNonValida e1)
         {
             return null;
         }
@@ -93,9 +97,11 @@ public class Circolo implements Serializable
     {
         try
         {
+            if(n<0 || n>=NUM_MAX_PRENOTAZIONI)
+                throw new EccezionePosizioneNonValida(n);
             return new Maestro(maestri[n]);
         }
-        catch(NullPointerException e1)
+        catch(NullPointerException | EccezionePosizioneNonValida e1)
         {
             return null;
         }

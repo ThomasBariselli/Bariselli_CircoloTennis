@@ -26,7 +26,7 @@ public class EccezioneCodiceNonPresente extends Exception
     public String toString()
     {
         String s="";
-        s+="La prenotazione di codice identificativo "+getCodice()+" non è presente";
+        s+="La prenotazione di codice identificativo "+getCodice()+" non è presente o è vuota";
         return s;
     }
     
