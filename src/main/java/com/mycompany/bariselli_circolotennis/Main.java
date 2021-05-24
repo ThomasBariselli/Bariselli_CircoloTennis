@@ -54,6 +54,13 @@ public class Main
         try 
         {
             c1=c1.caricaCircolo(nomeFileBinario);
+         
+            for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
+            {
+                codice++;
+                c1.setCodicePrenotazione(i,codice);
+            }
+            
             for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
             {
                 if(c1.getPrenotazione(i).getDataOraLezione().compareTo(LocalDateTime.now())<0)
@@ -61,11 +68,6 @@ public class Main
                     c1.rimuoviPrenotazione(i+1);
                     sceltaSalva=false;
                 }
-            }
-            for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
-            {
-                codice++;
-                c1.setCodicePrenotazione(i,codice);
             }
             
             System.out.println("Dati caricati correttamente");
