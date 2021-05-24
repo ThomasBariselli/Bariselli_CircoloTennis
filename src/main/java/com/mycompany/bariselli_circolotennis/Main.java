@@ -11,6 +11,7 @@ import Eccezioni.EccezioneDataNonValida;
 import Eccezioni.EccezioneNessunMaestroPresente;
 import Eccezioni.FileException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -24,10 +25,11 @@ import utility.Ordinatore;
  */
 public class Main 
 {
-    public static void main(String[] args) 
+    public static void main(String[] args) throws EccezioneCodiceNonPresente 
     {
         String[] vociMenu=new String[9];
         int sceltaUtente=-1;
+        boolean sceltaSalva=true;
         Scanner tastiera=new Scanner(System.in);
         Circolo c1=new Circolo();
         Maestro[] maestriOrdinato;
@@ -43,7 +45,7 @@ public class Main
         vociMenu[3]="Visualizzare i dati relativi a tutte le lezioni prenotate nel circolo";
         vociMenu[4]="Visualizzare i dati relativi a tutte le lezioni prenotate da un cliente";
         vociMenu[5]="Visualizzare tutte le lezioni prenotate per un determinato maestro";
-        vociMenu[6]="Visualizzare  il numero di lezioni tenute da ogni maestro in ordine alfabetico di cliente ";
+        vociMenu[6]="Visualizzare  il numero di lezioni tenute da ogni maestro in ordine alfabetico di maestro ";
         vociMenu[7]="Esporta libri su file CSV";
         vociMenu[8]="Salva dati";
     
@@ -54,9 +56,18 @@ public class Main
             c1=c1.caricaCircolo(nomeFileBinario);
             for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
             {
+                if(c1.getPrenotazione(i).getDataOraLezione().compareTo(LocalDateTime.now())<0)
+                {
+                    c1.rimuoviPrenotazione(i+1);
+                    sceltaSalva=false;
+                }
+            }
+            for(int i=0;i<c1.getnPrenotazioniPresenti();i++)
+            {
                 codice++;
                 c1.setCodicePrenotazione(i,codice);
             }
+            
             System.out.println("Dati caricati correttamente");
         } 
         catch (IOException ex) 
@@ -88,6 +99,7 @@ public class Main
                         Maestro m;
                         String nome,cognome,nomeMaestro,cognomeMaestro;
                         int giorno,mese,anno,ora;
+                        sceltaSalva=false;
                         
                         try
                         {
@@ -132,6 +144,7 @@ public class Main
                         int codiceDaEliminare;
                         System.out.println("Codice prenotazione da eliminare-->");
                         codiceDaEliminare=tastiera.nextInt();
+                        sceltaSalva=false;
                         
                         try
                         {
@@ -150,6 +163,8 @@ public class Main
                     case 3:
                     {
                         System.out.println(c1.toString());
+                        System.out.println("Premi pulsante per continuare");
+                        tastiera.nextLine();
                         break;
                     }
                     case 4:
@@ -235,6 +250,8 @@ public class Main
                         {
                             System.out.println(e2.toString());
                         }
+                        System.out.println("Premi pulsante per continuare");
+                        tastiera.nextLine();
                         break;
                     }
                     case 8:
@@ -242,11 +259,14 @@ public class Main
                         try 
                         {
                             c1.salvaCircolo(nomeFileBinario);
+                            sceltaSalva=true;
                             System.out.println("Dati salvati correttamente");
                         } catch (IOException ex) 
                         {
                             System.out.println("Impossibile accedere al file in scrittura");
                         }
+                        System.out.println("Premi pulsante per continuare");
+                        tastiera.nextLine();
                         break;
 
                     }
@@ -262,5 +282,23 @@ public class Main
             
             
         }while (sceltaUtente!=0);
+        if(sceltaSalva==false)
+        {
+            char scelta=' ';
+            System.out.println("\nSalavare le modifiche?(S=si altro=no)");
+            scelta=tastiera.nextLine().charAt(0);
+            if(scelta=='s' || scelta=='S')
+            try 
+            {
+                c1.salvaCircolo(nomeFileBinario);
+                System.out.println("Dati salvati correttamente");
+            } catch (IOException ex) {
+                System.out.println("Impossibile accedere al file in scrittura");
+            }
+            System.out.println("Premi pulsante per continuare");
+            tastiera.nextLine();
+            
+        }
+        
     }
 }
