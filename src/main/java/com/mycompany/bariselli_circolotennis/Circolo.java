@@ -141,13 +141,18 @@ public class Circolo implements Serializable
     {
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
-            if(prenotazioni[i].getCodice()==codice) 
+            if(prenotazioni[i]!=null)
             {
-                prenotazioni[i]=null;
-                aggiornaPosizione(i);
-                nPrenotazioniPresenti--;
-                return;
+                if(prenotazioni[i].getCodice()==codice) 
+                {
+                    prenotazioni[i]=null;
+                    aggiornaPosizione(i);
+                    nPrenotazioniPresenti--;
+                    return;
+                }
             }
+                    
+            
         } 
         throw new EccezioneCodiceNonPresente(codice);
     }

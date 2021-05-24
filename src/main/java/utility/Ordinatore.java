@@ -135,14 +135,18 @@ public class Ordinatore
             ordinato[i]=a[i];
         for(int i=0;i<=ordinato.length-1;i++)
         {
-            for(int j=i+1;j<ordinato.length;j++)
+            if(ordinato[i]!=null)
             {
-                if(ordinato[j]!=null)
+                for(int j=i+1;j<ordinato.length;j++)
                 {
-                    if((ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())<0)  || (ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())==0 && ordinato[j].getNome().compareToIgnoreCase(ordinato[i].getNome())<0))
-                        scambia(ordinato,i,j);
+                    if(ordinato[j]!=null)
+                    {
+                        if((ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())<0)  || (ordinato[j].getCognome().compareToIgnoreCase(ordinato[i].getCognome())==0 && ordinato[j].getNome().compareToIgnoreCase(ordinato[i].getNome())<0))
+                            scambia(ordinato,i,j);
+                    }
                 }
             }
+            
         }
         return ordinato;
     }
