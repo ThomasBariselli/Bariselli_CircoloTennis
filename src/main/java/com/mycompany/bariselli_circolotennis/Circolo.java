@@ -112,34 +112,29 @@ public class Circolo implements Serializable
         int cont=0;
         for(int i=0;i<getnPrenotazioniPresenti();i++)
         {
-          if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
-            throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
-          else if(p.getDataOraLezione().getHour()<8 || p.getDataOraLezione().getHour()>17 || (p.getDataOraLezione().getHour()>11 && p.getDataOraLezione().getHour()<14))
-            throw new EccezioneDataNonValida("Ora non valida,reinserire la prenotazione con una data valida");
-          
-          
+            if(prenotazioni[i].getDataOraLezione().compareTo(p.getDataOraLezione())==0)
+                throw new EccezioneDataNonValida("Data occupata,reinserire la prenotazione con una data valida");
         }
+        if(p.getDataOraLezione().getHour()<8 || p.getDataOraLezione().getHour()>17 || (p.getDataOraLezione().getHour()>11 && p.getDataOraLezione().getHour()<14))
+                    throw new EccezioneDataNonValida("Ora non valida,reinserire la prenotazione con una data valida");
         if(LocalDateTime.now().compareTo(p.getDataOraLezione())>0 )
             throw new EccezioneDataNonValida("Data gia' passata,reinserire la prenotazione con una data valida");
-        else
-        {
-            for(int i=0;i<getnPrenotazioniPresenti();i++)
+       for(int i=0;i<getnPrenotazioniPresenti();i++)
+       {
+            if(maestri[i]!=null)
             {
-                if(maestri[i]!=null)
-                {
-                    if(maestri[i].getNome().compareToIgnoreCase(p.getMaestro().getNome())==0 && maestri[i].getCognome().compareToIgnoreCase(p.getMaestro().getCognome())==0)
-                        cont++;
-                }
+                if(maestri[i].getNome().compareToIgnoreCase(p.getMaestro().getNome())==0 && maestri[i].getCognome().compareToIgnoreCase(p.getMaestro().getCognome())==0)
+                    cont++;
             }
-            if(cont==0)
-            {
-                maestri[nMaestriPresenti]=new Maestro(p.getMaestro());
-                nMaestriPresenti++;
-            }
+       }
+       if(cont==0)
+       {
+            maestri[nMaestriPresenti]=new Maestro(p.getMaestro());
+            nMaestriPresenti++;
+       }
               
             prenotazioni[nPrenotazioniPresenti]=new Prenotazione(p);
             nPrenotazioniPresenti++;
-        } 
             
     }
     
@@ -183,9 +178,8 @@ public class Circolo implements Serializable
             if((prenotazioni[j].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getCognome().compareToIgnoreCase(cognome))==0)
             {
                 prenotazioniCliente[i]=new Prenotazione(prenotazioni[j]);
-                i++;
-                
             }
+            i++;
         }
           
         if(c>0)
@@ -244,18 +238,18 @@ public class Circolo implements Serializable
             if((prenotazioni[i].getMaestro().getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[i].getMaestro().getCognome().compareToIgnoreCase(cognome))==0)
                 c++;
         }
-        Prenotazione[] prenotazioniCliente=new Prenotazione[c];
+        Prenotazione[] prenotazioniMaestro=new Prenotazione[c];
         int i=0;
         for(int j=0;j<c;j++)
         {
                 if((prenotazioni[j].getMaestro().getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getMaestro().getCognome().compareToIgnoreCase(cognome))==0)
                 {
-                    prenotazioniCliente[i]=new Prenotazione(prenotazioni[j]);
-                    i++;
+                    prenotazioniMaestro[i]=new Prenotazione(prenotazioni[j]);
                 }
+                i++;
         }
         if(c>0)
-           return prenotazioniCliente;
+           return prenotazioniMaestro;
         else
             throw new EccezioneNonPresente(nome,cognome,"maestro");
     }

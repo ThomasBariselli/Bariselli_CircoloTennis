@@ -122,7 +122,7 @@ public class Prenotazione implements Serializable
     {
         Prenotazione p;
         p=(Prenotazione)o;
-        if(this.getCodice()==p.getCodice() && this.getNome().compareToIgnoreCase(p.getNome())==0 && this.getCognome().compareToIgnoreCase(p.getCognome())==0 && this.dataOraLezione.compareTo(p.getDataOraLezione())==0 && this.maestro.getNome().compareToIgnoreCase(p.maestro.getNome())==0 && this.maestro.getNome().compareToIgnoreCase(p.maestro.getCognome())==0)
+        if(this.getCodice()==p.getCodice() && this.getNome().compareToIgnoreCase(p.getNome())==0 && this.getCognome().compareToIgnoreCase(p.getCognome())==0 && this.dataOraLezione.compareTo(p.getDataOraLezione())==0 && this.getMaestro().getNome().compareToIgnoreCase(p.getMaestro().getNome())==0 && this.getMaestro().getCognome().compareToIgnoreCase(p.getMaestro().getCognome())==0)
             return true;
         else
             return false;

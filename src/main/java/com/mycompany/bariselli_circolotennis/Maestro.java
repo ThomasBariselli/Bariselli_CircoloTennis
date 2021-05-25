@@ -70,5 +70,13 @@ public class Maestro implements Serializable
         return " maestro: " + "nome=" + nome + ", cognome=" + cognome ;
     }
     
-    
+    public boolean equals(Object o)
+    {
+        Maestro m;
+        m=(Maestro)o;
+        if(this.getNome().compareToIgnoreCase(m.getNome())==0 && this.getCognome().compareToIgnoreCase(m.getCognome())==0 )
+            return true;
+        else
+            return false;
+    }
 }
