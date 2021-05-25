@@ -204,7 +204,7 @@ public class Main
                         {
                             elencoPrenotazioniMaestro=c1.getPrenotazioniMaestro(nomeMaestro,cognomeMaestro);
                             for(int i=0;i<elencoPrenotazioniMaestro.length;i++)
-                                System.out.println(elencoPrenotazioniMaestro[i]);
+                                System.out.println("\n"+elencoPrenotazioniMaestro[i]);
                         }
                         catch(EccezioneNonPresente e1)
                         {

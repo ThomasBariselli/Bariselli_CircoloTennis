@@ -241,8 +241,8 @@ public class Circolo implements Serializable
             if((prenotazioni[j].getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getCognome().compareToIgnoreCase(cognome))==0)
             {
                 prenotazioniCliente[i]=new Prenotazione(prenotazioni[j]);
+                i++;
             }
-            i++;
         }
           
         if(c>0)
@@ -317,13 +317,13 @@ public class Circolo implements Serializable
         }
         Prenotazione[] prenotazioniMaestro=new Prenotazione[c];
         int i=0;
-        for(int j=0;j<c;j++)
+        for(int j=0;j<getnPrenotazioniPresenti();j++)
         {
-                if((prenotazioni[j].getMaestro().getNome().compareToIgnoreCase(nome))==0 && (prenotazioni[j].getMaestro().getCognome().compareToIgnoreCase(cognome))==0)
+                if(prenotazioni[j].getMaestro().getNome().compareToIgnoreCase(nome)==0 && prenotazioni[j].getMaestro().getCognome().compareToIgnoreCase(cognome)==0)
                 {
                     prenotazioniMaestro[i]=new Prenotazione(prenotazioni[j]);
+                    i++;
                 }
-                i++;
         }
         if(c>0)
            return prenotazioniMaestro;
