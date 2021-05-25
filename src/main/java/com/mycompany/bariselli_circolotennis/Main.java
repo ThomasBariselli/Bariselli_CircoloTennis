@@ -65,7 +65,7 @@ public class Main
             {
                 if(c1.getPrenotazione(i).getDataOraLezione().compareTo(LocalDateTime.now())<0)
                 {
-                    c1.rimuoviPrenotazione(i+1);
+                    c1.rimuoviPrenotazione(i+1);//ciclo che elimina tutte le prenotazioni con date già passate
                     sceltaSalva=false;
                 }
             }
@@ -287,7 +287,7 @@ public class Main
         if(sceltaSalva==false)
         {
             char scelta=' ';
-            System.out.println("\nSalavare le modifiche?(S=si altro=no)");
+            System.out.println("\nSalvare le modifiche?(S=si altro=no)");//domanda di sicurezza per evitare di uscire per sbaglio senza salvare
             scelta=tastiera.nextLine().charAt(0);
             if(scelta=='s' || scelta=='S')
             try 
