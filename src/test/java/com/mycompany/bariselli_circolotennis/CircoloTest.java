@@ -363,7 +363,18 @@ public class CircoloTest {
     @Test
     public void testEsportaPrenotazioniCSV() throws Exception 
     {
-        //testati nel test d'integrazione
+        Circolo c1=new Circolo();
+        
+        Maestro maestro1=new Maestro("","");
+        Prenotazione p1=new Prenotazione(1, "Angelo", "Arrigoni", 24, 12, 2021, 8, 0, maestro1);
+        Prenotazione p2=new Prenotazione(2, "Angelo", "Arrigoni", 25, 12, 2021, 8, 0, maestro1);
+        Prenotazione p3=new Prenotazione(3, "Gianni", "Ziliani", 26, 12, 2021, 8, 0, maestro1);
+        
+        c1.aggiungiPrenotazione(p1);
+        c1.aggiungiPrenotazione(p2);
+        c1.aggiungiPrenotazione(p3);
+        
+        c1.salvaCircolo("circoloTest.txt");
     }
 
     /**
@@ -372,7 +383,18 @@ public class CircoloTest {
     @Test
     public void testSalvaCircolo() throws Exception 
     {
-        //testati nel test d'integrazione
+        Circolo c1=new Circolo();
+        
+        Maestro maestro1=new Maestro("","");
+        Prenotazione p1=new Prenotazione(1, "Angelo", "Arrigoni", 24, 12, 2021, 8, 0, maestro1);
+        Prenotazione p2=new Prenotazione(2, "Angelo", "Arrigoni", 25, 12, 2021, 8, 0, maestro1);
+        Prenotazione p3=new Prenotazione(3, "Gianni", "Ziliani", 26, 12, 2021, 8, 0, maestro1);
+        
+        c1.aggiungiPrenotazione(p1);
+        c1.aggiungiPrenotazione(p2);
+        c1.aggiungiPrenotazione(p3);
+        
+        c1.salvaCircolo("circoloTest2.bin");
     }
 
     /**
@@ -381,7 +403,23 @@ public class CircoloTest {
     @Test
     public void testCaricaCircolo() throws Exception 
     {
-        //testati nel test d'integrazione
+        Circolo c1=new Circolo();
+        
+        Maestro maestro1=new Maestro("","");
+        Prenotazione p1=new Prenotazione(1, "Angelo", "Arrigoni", 24, 12, 2021, 8, 0, maestro1);
+        Prenotazione p2=new Prenotazione(2, "Angelo", "Arrigoni", 25, 12, 2021, 8, 0, maestro1);
+        Prenotazione p3=new Prenotazione(3, "Gianni", "Ziliani", 26, 12, 2021, 8, 0, maestro1);
+        
+        c1.aggiungiPrenotazione(p1);
+        c1.aggiungiPrenotazione(p2);
+        c1.aggiungiPrenotazione(p3);
+        
+        c1.salvaCircolo("circoloTest2.bin");
+        
+        Circolo atteso,attuale;
+        atteso=c1;
+        attuale=c1.caricaCircolo("circoloTest2.bin");
+        assertEquals("Carica i dati da file ",atteso, attuale);
     }
     
 }
